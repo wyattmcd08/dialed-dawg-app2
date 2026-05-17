@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dialed Dawg" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Dialed Dawg</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<!-- SPLASH -->
+
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-icon">🐺</div>
+    <div class="splash-title">DIALED<br>DAWG</div>
+    <div class="splash-sub">ELITE FITNESS OS</div>
+  </div>
+</div>
+
+<!-- APP -->
+
+<div id="app" class="hidden">
+
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-left">
+        <span class="top-greet" id="greeting">Good morning</span>
+        <span class="top-name"  id="userName">Athlete</span>
+      </div>
+      <div class="avatar-circle" id="avatarCircle">A</div>
+    </div>
+  </header>
+
+  <main id="pagesWrap">
+
+```
+<!-- HOME -->
+<section class="page active" id="page-home">
+  <div class="scroll-area">
+
+    <div class="quote-strip" id="dailyQuote"></div>
+
+    <div class="cal-card">
+      <div class="cal-ring-wrap">
+        <svg class="cal-svg" viewBox="0 0 120 120">
+          <circle class="ring-bg"   cx="60" cy="60" r="52"/>
+          <circle class="ring-prog" cx="60" cy="60" r="52"
+            id="calRingCircle"
+            stroke-dasharray="326.7" stroke-dashoffset="326.7"
+            transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="cal-center">
+          <div class="cal-num" id="calRemaining">—</div>
+          <div class="cal-lbl">kcal left</div>
+        </div>
+      </div>
+      <div class="cal-aside">
+        <div class="cal-row"><span class="cr-label">Goal</span><span class="cr-val" id="calGoal">—</span></div>
+        <div class="cal-row"><span class="cr-label">Eaten</span><span class="cr-val" id="calEaten">0</span></div>
+        <div class="cal-row"><span class="cr-label">Burned</span><span class="cr-val" id="calBurned">0</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">MACROS</div>
+      <div class="mbar-row"><span class="mbar-name">Protein</span><div class="mbar-track"><div class="mbar-fill prot" id="protFill"></div></div><span class="mbar-val" id="protVal">0g</span></div>
+      <div class="mbar-row"><span class="mbar-name">Carbs</span><div class="mbar-track"><div class="mbar-fill carb" id="carbFill"></div></div><span class="mbar-val" id="carbVal">0g</span></div>
+      <div class="mbar-row"><span class="mbar-name">Fat</span><div class="mbar-track"><div class="mbar-fill fats" id="fatFill"></div></div><span class="mbar-val" id="fatVal">0g</span></div>
+    </div>
+
+    <div class="qs-row">
+      <div class="qs-tile" id="qsWater"><div class="qs-icon">💧</div><div class="qs-num" id="waterVal">—</div><div class="qs-lbl">water</div></div>
+      <div class="qs-tile" id="qsSleep"><div class="qs-icon">😴</div><div class="qs-num" id="sleepVal">—</div><div class="qs-lbl">sleep</div></div>
+      <div class="qs-tile" id="qsStreak"><div class="qs-icon">🔥</div><div class="qs-num" id="streakVal">0</div><div class="qs-lbl">streak</div></div>
+      <div class="qs-tile" id="qsWeight"><div class="qs-icon">⚖️</div><div class="qs-num" id="weightVal">—</div><div class="qs-lbl">weight</div></div>
+    </div>
+
+    <div class="card workout-card">
+      <div class="wc-top">
+        <div><div class="card-label">TODAY'S WORKOUT</div><div class="wc-name" id="todayWorkoutName">—</div></div>
+        <span class="wc-badge" id="todayWorkoutBadge"></span>
+      </div>
+      <div class="wc-exercises" id="todayWorkoutList"></div>
+      <button class="btn-primary mt-12" id="startWorkoutBtn">START WORKOUT</button>
+    </div>
+
+    <div class="card">
+      <div class="card-label">RECOVERY SCORE</div>
+      <div class="rec-row">
+        <div class="rec-score" id="recoveryScore">—</div>
+        <div class="rec-right">
+          <div class="rec-bar-track"><div class="rec-bar-fill" id="recoveryBar"></div></div>
+          <div class="rec-status" id="recoveryStatus">Log a workout to track recovery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">PERSONAL RECORDS 🏆</div>
+      <div id="homePRList" class="pr-list"><div class="empty-state"><div class="es-text">No PRs yet. Finish a workout to set records.</div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">DAILY CHECKLIST</div>
+      <label class="check-item"><input type="checkbox" class="check-inp" data-key="workout"><span>Complete workout</span></label>
+      <label class="check-item"><input type="checkbox" class="check-inp" data-key="protein"><span>Hit protein goal</span></label>
+      <label class="check-item"><input type="checkbox" class="check-inp" data-key="water"><span>Drink 8 cups of water</span></label>
+      <label class="check-item"><input type="checkbox" class="check-inp" data-key="sleep"><span>Log sleep</span></label>
+      <label class="check-item"><input type="checkbox" class="check-inp" data-key="weight"><span>Log body weight</span></label>
+    </div>
+
+    <div class="qa-row">
+      <button class="qa-btn" id="quickAddMeal">＋ Meal</button>
+      <button class="qa-btn" id="quickAddWeight">＋ Weight</button>
+      <button class="qa-btn" id="quickAddWater">＋ Water</button>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- WORKOUT -->
+<section class="page" id="page-workout">
+  <div class="scroll-area">
+    <div class="page-hdr"><h1 class="page-h1">WORKOUTS</h1></div>
+
+    <div class="card">
+      <div class="card-label">ACTIVE SPLIT — <span id="splitNameLabel">PPL 6-Day</span></div>
+      <div id="splitDays"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">EXERCISE LIBRARY</div>
+      <input type="text" class="search-inp" id="exerciseSearch" placeholder="Search exercises…" />
+      <div class="chip-row" id="muscleFilter">
+        <button class="chip active" data-muscle="all">All</button>
+        <button class="chip" data-muscle="chest">Chest</button>
+        <button class="chip" data-muscle="back">Back</button>
+        <button class="chip" data-muscle="legs">Legs</button>
+        <button class="chip" data-muscle="shoulders">Shoulders</button>
+        <button class="chip" data-muscle="arms">Arms</button>
+        <button class="chip" data-muscle="core">Core</button>
+      </div>
+      <div id="exerciseList" class="ex-list"></div>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+
+  <!-- Active workout overlay — inside workout page -->
+  <div class="workout-overlay hidden" id="activeWorkoutOverlay">
+    <div class="wo-topbar">
+      <div class="wo-name" id="awTitle">WORKOUT</div>
+      <div class="wo-timer" id="awTimer">00:00</div>
+      <button class="wo-finish" id="finishWorkoutBtn">FINISH</button>
+    </div>
+    <div class="wo-scroll" id="awExercises"></div>
+    <div class="wo-footer">
+      <button class="btn-secondary" id="addExToWorkout">＋ Add Exercise</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section class="page" id="page-progress">
+  <div class="scroll-area">
+    <div class="page-hdr"><h1 class="page-h1">PROGRESS</h1></div>
+
+    <div class="big3-grid">
+      <div class="big3-card"><div class="b3-ico">🏋️</div><div class="b3-name">BENCH</div><div class="b3-val" id="pr-bench">—</div><div class="b3-est" id="pr-bench-est"></div></div>
+      <div class="big3-card"><div class="b3-ico">🦵</div><div class="b3-name">SQUAT</div><div class="b3-val" id="pr-squat">—</div><div class="b3-est" id="pr-squat-est"></div></div>
+      <div class="big3-card"><div class="b3-ico">💪</div><div class="b3-name">DEADLIFT</div><div class="b3-val" id="pr-deadlift">—</div><div class="b3-est" id="pr-deadlift-est"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label-row">
+        <span class="card-label">BODY STATS</span>
+        <button class="btn-tiny" id="logBodyStatsBtn">LOG</button>
+      </div>
+      <div class="bstat-grid">
+        <div class="bstat"><div class="bstat-val" id="bsWeight">—</div><div class="bstat-lbl">Weight</div></div>
+        <div class="bstat"><div class="bstat-val" id="bsBF">—</div><div class="bstat-lbl">Body Fat</div></div>
+        <div class="bstat"><div class="bstat-val" id="bsChest">—</div><div class="bstat-lbl">Chest</div></div>
+        <div class="bstat"><div class="bstat-val" id="bsWaist">—</div><div class="bstat-lbl">Waist</div></div>
+        <div class="bstat"><div class="bstat-val" id="bsArms">—</div><div class="bstat-lbl">Arms</div></div>
+        <div class="bstat"><div class="bstat-val" id="bsLegs">—</div><div class="bstat-lbl">Legs</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">WEIGHT TREND</div>
+      <div class="chart-wrap">
+        <canvas id="weightChart"></canvas>
+        <div class="chart-empty hidden" id="weightChartEmpty">No weight entries yet. Log your weight to see a trend.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">STRENGTH PROGRESS</div>
+      <div id="strengthList" class="strength-list"><div class="empty-state"><div class="es-text">Complete workouts to track strength progress.</div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label-row">
+        <span class="card-label">PROGRESS PHOTOS</span>
+        <button class="btn-tiny" id="addPhotoBtn">＋ ADD</button>
+      </div>
+      <div id="photoGallery" class="photo-gallery">
+        <div class="empty-state"><div class="es-icon">📸</div><div class="es-text">No photos yet</div></div>
+      </div>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- NUTRITION -->
+<section class="page" id="page-nutrition">
+  <div class="scroll-area">
+    <div class="page-hdr">
+      <h1 class="page-h1">NUTRITION</h1>
+      <button class="btn-tiny" id="openCalcBtn">CALC</button>
+    </div>
+
+    <div class="card nutr-summary">
+      <div class="ns-trio">
+        <div class="ns-item"><div class="ns-num" id="nCalEaten">0</div><div class="ns-lbl">Eaten</div></div>
+        <div class="ns-divider"></div>
+        <div class="ns-item"><div class="ns-num accent" id="nCalLeft">—</div><div class="ns-lbl">Left</div></div>
+        <div class="ns-divider"></div>
+        <div class="ns-item"><div class="ns-num" id="nCalGoal">—</div><div class="ns-lbl">Goal</div></div>
+      </div>
+      <div class="ns-progbar"><div class="ns-progfill" id="nutrProgFill"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="mbar-row"><span class="mbar-name">Protein</span><div class="mbar-track"><div class="mbar-fill prot" id="nProtFill"></div></div><span class="mbar-val" id="nProtVal">0g</span></div>
+      <div class="mbar-row"><span class="mbar-name">Carbs</span><div class="mbar-track"><div class="mbar-fill carb" id="nCarbFill"></div></div><span class="mbar-val" id="nCarbVal">0g</span></div>
+      <div class="mbar-row"><span class="mbar-name">Fat</span><div class="mbar-track"><div class="mbar-fill fats" id="nFatFill"></div></div><span class="mbar-val" id="nFatVal">0g</span></div>
+    </div>
+
+    <div class="meal-section" data-meal="breakfast">
+      <div class="meal-hdr"><span class="meal-name">Breakfast</span><span class="meal-cals" id="cals-breakfast">0 kcal</span><button class="meal-add" data-meal="breakfast">＋</button></div>
+      <div class="meal-items" id="foods-breakfast"></div>
+    </div>
+    <div class="meal-section" data-meal="lunch">
+      <div class="meal-hdr"><span class="meal-name">Lunch</span><span class="meal-cals" id="cals-lunch">0 kcal</span><button class="meal-add" data-meal="lunch">＋</button></div>
+      <div class="meal-items" id="foods-lunch"></div>
+    </div>
+    <div class="meal-section" data-meal="dinner">
+      <div class="meal-hdr"><span class="meal-name">Dinner</span><span class="meal-cals" id="cals-dinner">0 kcal</span><button class="meal-add" data-meal="dinner">＋</button></div>
+      <div class="meal-items" id="foods-dinner"></div>
+    </div>
+    <div class="meal-section" data-meal="snacks">
+      <div class="meal-hdr"><span class="meal-name">Snacks</span><span class="meal-cals" id="cals-snacks">0 kcal</span><button class="meal-add" data-meal="snacks">＋</button></div>
+      <div class="meal-items" id="foods-snacks"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">WATER INTAKE</div>
+      <div class="water-cups" id="waterCups"></div>
+      <div class="water-text" id="waterGoalText">0 / 8 cups</div>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- RECOVERY -->
+<section class="page" id="page-recovery">
+  <div class="scroll-area">
+    <div class="page-hdr"><h1 class="page-h1">RECOVERY</h1></div>
+
+    <div class="card rec-hero-card">
+      <div class="rh-score" id="rhScore">—</div>
+      <div class="rh-label">RECOVERY SCORE</div>
+      <div class="rh-status" id="rhStatus">Log a workout to track recovery</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">MUSCLE FATIGUE MAP</div>
+      <div class="body-diagram">
+        <div class="bd-col">
+          <div class="bd-lbl">FRONT</div>
+          <svg class="body-svg" viewBox="0 0 100 200">
+            <circle cx="50" cy="12" r="10" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+            <rect x="46" y="21" width="8" height="8" rx="2" fill="#1a1a1a"/>
+            <rect x="32" y="29" width="36" height="28" rx="4" class="mz" data-muscle="chest"/>
+            <ellipse cx="26" cy="35" rx="10" ry="8" class="mz" data-muscle="shoulders"/>
+            <ellipse cx="74" cy="35" rx="10" ry="8" class="mz" data-muscle="shoulders"/>
+            <rect x="16" y="43" width="10" height="30" rx="4" class="mz" data-muscle="arms"/>
+            <rect x="74" y="43" width="10" height="30" rx="4" class="mz" data-muscle="arms"/>
+            <rect x="15" y="74" width="9" height="24" rx="3" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="76" y="74" width="9" height="24" rx="3" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="37" y="57" width="11" height="10" rx="2" class="mz" data-muscle="core"/>
+            <rect x="51" y="57" width="11" height="10" rx="2" class="mz" data-muscle="core"/>
+            <rect x="37" y="69" width="11" height="10" rx="2" class="mz" data-muscle="core"/>
+            <rect x="51" y="69" width="11" height="10" rx="2" class="mz" data-muscle="core"/>
+            <rect x="37" y="81" width="11" height="8"  rx="2" class="mz" data-muscle="core"/>
+            <rect x="51" y="81" width="11" height="8"  rx="2" class="mz" data-muscle="core"/>
+            <rect x="33" y="105" width="15" height="50" rx="6" class="mz" data-muscle="legs"/>
+            <rect x="52" y="105" width="15" height="50" rx="6" class="mz" data-muscle="legs"/>
+            <rect x="34" y="157" width="12" height="30" rx="4" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="54" y="157" width="12" height="30" rx="4" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="bd-col">
+          <div class="bd-lbl">BACK</div>
+          <svg class="body-svg" viewBox="0 0 100 200">
+            <circle cx="50" cy="12" r="10" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+            <rect x="46" y="21" width="8" height="8" rx="2" fill="#1a1a1a"/>
+            <rect x="32" y="29" width="36" height="32" rx="4" class="mz" data-muscle="back"/>
+            <ellipse cx="26" cy="35" rx="10" ry="8" class="mz" data-muscle="shoulders"/>
+            <ellipse cx="74" cy="35" rx="10" ry="8" class="mz" data-muscle="shoulders"/>
+            <rect x="16" y="43" width="10" height="30" rx="4" class="mz" data-muscle="arms"/>
+            <rect x="74" y="43" width="10" height="30" rx="4" class="mz" data-muscle="arms"/>
+            <rect x="15" y="74" width="9" height="24" rx="3" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="76" y="74" width="9" height="24" rx="3" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="37" y="62" width="26" height="28" rx="3" class="mz" data-muscle="back"/>
+            <rect x="33" y="90" width="15" height="15" rx="4" class="mz" data-muscle="legs"/>
+            <rect x="52" y="90" width="15" height="15" rx="4" class="mz" data-muscle="legs"/>
+            <rect x="33" y="105" width="15" height="50" rx="6" class="mz" data-muscle="legs"/>
+            <rect x="52" y="105" width="15" height="50" rx="6" class="mz" data-muscle="legs"/>
+            <rect x="34" y="157" width="12" height="30" rx="4" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+            <rect x="54" y="157" width="12" height="30" rx="4" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fatigue-legend">
+        <div class="fl-item"><div class="fl-dot fl-fresh"></div>Fresh</div>
+        <div class="fl-item"><div class="fl-dot fl-mod"></div>Moderate</div>
+        <div class="fl-item"><div class="fl-dot fl-fat"></div>Fatigued</div>
+      </div>
+    </div>
+
+    <div class="card"><div class="card-label">MUSCLE STATUS</div><div id="muscleRecoveryList"></div></div>
+    <div class="card"><div class="card-label">RECOMMENDATIONS</div><div id="recoveryRecs"></div></div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section class="page" id="page-calendar">
+  <div class="scroll-area">
+    <div class="page-hdr"><h1 class="page-h1">CONSISTENCY</h1></div>
+
+    <div class="streak-row">
+      <div class="streak-tile"><div class="stile-val" id="calStreak">0</div><div class="stile-lbl">Streak</div></div>
+      <div class="streak-tile"><div class="stile-val" id="calBestStreak">0</div><div class="stile-lbl">Best</div></div>
+      <div class="streak-tile"><div class="stile-val" id="calConsistency">—</div><div class="stile-lbl">This Month</div></div>
+    </div>
+
+    <div class="card">
+      <div class="cal-nav-hdr">
+        <button class="cal-arrow" id="calPrev">‹</button>
+        <div class="cal-month-lbl" id="calMonthLabel">—</div>
+        <button class="cal-arrow" id="calNext">›</button>
+      </div>
+      <div class="cal-dow-row"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend">
+        <div class="cl-item"><div class="cl-dot cl-workout"></div>Workout</div>
+        <div class="cl-item"><div class="cl-dot cl-rest"></div>Rest day</div>
+        <div class="cl-item"><div class="cl-dot cl-today"></div>Today</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">THIS MONTH</div>
+      <div class="month-stats">
+        <div class="mstat"><div class="mstat-val" id="msWorkouts">0</div><div class="mstat-lbl">Workouts</div></div>
+        <div class="mstat"><div class="mstat-val" id="msRestDays">0</div><div class="mstat-lbl">Rest Days</div></div>
+        <div class="mstat"><div class="mstat-val" id="msConsist">—</div><div class="mstat-lbl">Consistency</div></div>
+      </div>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- PEPTIDES -->
+<section class="page" id="page-peptides">
+  <div class="scroll-area">
+    <div class="page-hdr">
+      <h1 class="page-h1">PEPTIDES</h1>
+      <button class="btn-tiny" id="addPeptideBtn">＋ ADD</button>
+    </div>
+
+    <div class="warn-banner">⚠️ For research and informational purposes only. Consult a medical professional.</div>
+
+    <div class="card"><div class="card-label">ACTIVE STACK</div><div id="peptideStack"></div></div>
+
+    <div class="card">
+      <div class="card-label">RECONSTITUTION CALCULATOR</div>
+      <div class="form-stack">
+        <div class="form-row"><label>Vial Size (mg)</label><input type="number" class="form-inp" id="vialSize" placeholder="5" inputmode="decimal"/></div>
+        <div class="form-row"><label>BAC Water (ml)</label><input type="number" class="form-inp" id="bacWater" placeholder="2" inputmode="decimal"/></div>
+        <div class="form-row"><label>Desired Dose (mcg)</label><input type="number" class="form-inp" id="desiredDose" placeholder="200" inputmode="decimal"/></div>
+        <div class="form-row">
+          <label>Syringe Size</label>
+          <select class="form-inp" id="syringeUnits">
+            <option value="100">100 IU (1 ml)</option>
+            <option value="50">50 IU (0.5 ml)</option>
+          </select>
+        </div>
+        <button class="btn-primary mt-12" id="calcReconBtn">CALCULATE</button>
+        <div class="recon-result hidden" id="reconResult">
+          <div class="rr-big">Draw <span id="rrUnits">—</span> IU</div>
+          <div class="rr-sub" id="rrml">— ml</div>
+          <div class="rr-sub" id="rrConc">Concentration: —</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card"><div class="card-label">INJECTION SCHEDULE</div><div id="injSchedule"></div></div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="page" id="page-settings">
+  <div class="scroll-area">
+    <div class="page-hdr"><h1 class="page-h1">PROFILE</h1></div>
+
+    <div class="card profile-card">
+      <div class="profile-avatar" id="settingsAvatar">A</div>
+      <div><div class="profile-name" id="settingsName">Athlete</div><div class="profile-sub">Dialed Dawg Member</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="sg-title">PROFILE</div>
+      <div class="setting-row" id="editNameSetting"><span class="sr-label">Display Name</span><span class="sr-val" id="siName">Athlete</span><span class="sr-arrow">›</span></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="sg-title">TARGETS</div>
+      <div class="setting-row" id="editCalGoalSetting"><span class="sr-label">Calorie Goal</span><span class="sr-val" id="siCalGoal">Not set</span><span class="sr-arrow">›</span></div>
+      <div class="setting-row" id="editProteinGoalSetting"><span class="sr-label">Protein Goal</span><span class="sr-val" id="siProteinGoal">Not set</span><span class="sr-arrow">›</span></div>
+      <div class="setting-row" id="editCarbGoalSetting"><span class="sr-label">Carb Goal</span><span class="sr-val" id="siCarbGoal">Not set</span><span class="sr-arrow">›</span></div>
+      <div class="setting-row" id="editFatGoalSetting"><span class="sr-label">Fat Goal</span><span class="sr-val" id="siFatGoal">Not set</span><span class="sr-arrow">›</span></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="sg-title">CALORIE CALCULATOR</div>
+      <div class="setting-row" id="openCalcSettingBtn"><span class="sr-label">Calculate My Targets</span><span class="sr-arrow">›</span></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="sg-title">DATA</div>
+      <div class="setting-row" id="exportDataSetting"><span class="sr-label">Export Backup</span><span class="sr-arrow">›</span></div>
+      <div class="setting-row danger" id="clearDataSetting"><span class="sr-label red">Reset All Data</span><span class="sr-arrow">›</span></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="sg-title">APP</div>
+      <div class="setting-row"><span class="sr-label">Version</span><span class="sr-val">1.0.0</span></div>
+    </div>
+
+    <div class="page-pad"></div>
+  </div>
+</section>
+```
+
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-btn active" data-page="home"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></button>
+    <button class="nav-btn" data-page="workout"><span class="nav-icon">💪</span><span class="nav-lbl">Workout</span></button>
+    <button class="nav-btn" data-page="progress"><span class="nav-icon">📈</span><span class="nav-lbl">Progress</span></button>
+    <button class="nav-btn" data-page="nutrition"><span class="nav-icon">🥩</span><span class="nav-lbl">Nutrition</span></button>
+    <button class="nav-btn" data-page="recovery"><span class="nav-icon">🔄</span><span class="nav-lbl">Recovery</span></button>
+    <button class="nav-btn" data-page="calendar"><span class="nav-icon">📅</span><span class="nav-lbl">Log</span></button>
+    <button class="nav-btn" data-page="peptides"><span class="nav-icon">💉</span><span class="nav-lbl">Peptides</span></button>
+    <button class="nav-btn" data-page="settings"><span class="nav-icon">⚙️</span><span class="nav-lbl">Profile</span></button>
+  </nav>
+</div>
+
+<!-- MODALS — outside #app for clean z-index stacking -->
+
+<div class="modal-overlay hidden" id="inputModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="inputModalTitle">Edit</div>
+    <div class="form-row"><label id="inputModalLabel">Value</label><input type="text" class="form-inp" id="inputModalField" /></div>
+    <button class="btn-primary mt-12" id="inputModalSave">SAVE</button>
+    <button class="modal-close" id="closeInputModal">✕</button>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="addFoodModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">ADD FOOD</div>
+    <div class="form-row"><label>Food Name</label><input type="text" class="form-inp" id="foodName" placeholder="Chicken Breast" /></div>
+    <div class="form-row"><label>Calories</label><input type="number" class="form-inp" id="foodCals" placeholder="165" inputmode="decimal"/></div>
+    <div class="form-row"><label>Protein (g)</label><input type="number" class="form-inp" id="foodProtein" placeholder="31" inputmode="decimal"/></div>
+    <div class="form-row"><label>Carbs (g)</label><input type="number" class="form-inp" id="foodCarbs" placeholder="0" inputmode="decimal"/></div>
+    <div class="form-row"><label>Fat (g)</label><input type="number" class="form-inp" id="foodFat" placeholder="3.6" inputmode="decimal"/></div>
+    <div class="fav-label">QUICK ADD FAVORITES</div>
+    <div class="fav-list" id="favoritesList"></div>
+    <button class="btn-primary mt-12" id="saveFoodBtn">ADD FOOD</button>
+    <button class="modal-close" id="closeAddFoodModal">✕</button>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="calcModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">CALORIE CALCULATOR</div>
+    <div class="form-row"><label>Age</label><input type="number" class="form-inp" id="calcAge" placeholder="25" inputmode="decimal"/></div>
+    <div class="form-row"><label>Weight (lbs)</label><input type="number" class="form-inp" id="calcWeight" placeholder="180" inputmode="decimal"/></div>
+    <div class="form-row"><label>Height (inches)</label><input type="number" class="form-inp" id="calcHeight" placeholder="70" inputmode="decimal"/></div>
+    <div class="form-row"><label>Gender</label><select class="form-inp" id="calcGender"><option value="male">Male</option><option value="female">Female</option></select></div>
+    <div class="form-row"><label>Activity Level</label>
+      <select class="form-inp" id="calcActivity">
+        <option value="1.2">Sedentary</option>
+        <option value="1.375">Lightly Active</option>
+        <option value="1.55" selected>Moderately Active</option>
+        <option value="1.725">Very Active</option>
+        <option value="1.9">Athlete</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Goal</label>
+      <select class="form-inp" id="calcGoalSelect">
+        <option value="cut">Lose Weight (−500 kcal)</option>
+        <option value="maintain">Maintain</option>
+        <option value="bulk">Gain Muscle (+300 kcal)</option>
+      </select>
+    </div>
+    <button class="btn-primary mt-12" id="runCalcBtn">CALCULATE</button>
+    <div class="calc-results hidden" id="calcResults">
+      <div class="cr-row"><span>Maintenance</span><strong id="crMaintain">—</strong></div>
+      <div class="cr-row"><span>Recommended</span><strong id="crRecommend">—</strong></div>
+      <div class="cr-row"><span>Est. change/week</span><strong id="crChange">—</strong></div>
+      <div class="cr-divider"></div>
+      <div class="cr-row"><span>Protein</span><strong id="crProtein">—</strong></div>
+      <div class="cr-row"><span>Carbs</span><strong id="crCarbs">—</strong></div>
+      <div class="cr-row"><span>Fat</span><strong id="crFat">—</strong></div>
+      <button class="btn-secondary mt-12" id="applyCalcBtn">APPLY THESE TARGETS</button>
+    </div>
+    <button class="modal-close" id="closeCalcModal">✕</button>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="addPeptideModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">ADD PEPTIDE</div>
+    <div class="form-row"><label>Name</label><input type="text" class="form-inp" id="pepName" placeholder="BPC-157"/></div>
+    <div class="form-row"><label>Dose</label><input type="text" class="form-inp" id="pepDose" placeholder="250mcg"/></div>
+    <div class="form-row"><label>Frequency</label><input type="text" class="form-inp" id="pepFreq" placeholder="Daily / 2x week"/></div>
+    <button class="btn-primary mt-12" id="savePeptideBtn">ADD TO STACK</button>
+    <button class="modal-close" id="closeAddPeptideModal">✕</button>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="bodyStatsModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">LOG BODY STATS</div>
+    <div class="form-row"><label>Weight (lbs)</label><input type="number" class="form-inp" id="bsInputWeight" placeholder="182" inputmode="decimal"/></div>
+    <div class="form-row"><label>Body Fat %</label><input type="number" class="form-inp" id="bsInputBF" placeholder="14" inputmode="decimal"/></div>
+    <div class="form-row"><label>Chest (in)</label><input type="number" class="form-inp" id="bsInputChest" placeholder="42" inputmode="decimal"/></div>
+    <div class="form-row"><label>Waist (in)</label><input type="number" class="form-inp" id="bsInputWaist" placeholder="33" inputmode="decimal"/></div>
+    <div class="form-row"><label>Arms (in)</label><input type="number" class="form-inp" id="bsInputArms" placeholder="15.5" inputmode="decimal"/></div>
+    <div class="form-row"><label>Legs (in)</label><input type="number" class="form-inp" id="bsInputLegs" placeholder="24" inputmode="decimal"/></div>
+    <button class="btn-primary mt-12" id="saveBodyStatsBtn">SAVE ENTRY</button>
+    <button class="modal-close" id="closeBodyStatsModal">✕</button>
+  </div>
+</div>
+
+<script src="./script.js"></script>
+
+</body>
+</html>
