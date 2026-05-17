@@ -37,9 +37,8 @@ body { font-family: var(--font-body); color: var(--white); -webkit-font-smoothin
   position: fixed; inset: 0; z-index: 9999;
   background: #080808;
   display: flex; align-items: center; justify-content: center;
-  transition: opacity .5s ease;
 }
-#splash.hidden { opacity: 0; pointer-events: none; visibility: hidden; }
+#splash.hidden { display: none; }
 .splash-inner { text-align: center; }
 .splash-icon  { font-size: 56px; animation: beat 1.4s ease infinite; }
 .splash-title { font-family: var(--font-disp); font-size: clamp(52px, 15vw, 80px); font-weight: 900; letter-spacing: 4px; color: var(--white); line-height: .9; }
