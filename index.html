@@ -583,6 +583,15 @@
 </div>
 
 <script src="./script.js"></script>
-
+<script>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var s = document.getElementById('splash');
+      var a = document.getElementById('app');
+      if (s) s.style.display = 'none';
+      if (a) { a.style.display = 'flex'; a.classList.remove('hidden'); }
+    }, 2000);
+  });
+</script>
 </body>
 </html>
